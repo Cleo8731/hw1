@@ -18,5 +18,7 @@ struct Node
 };
 
 void split(Node*& in, Node*& odds, Node*& evens);
-// WRITE YOUR CODE HERE
+
+void splitHelper(Node*& in, Node*& odds, Node*& evens);
+
 #endif

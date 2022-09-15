@@ -113,6 +113,12 @@ class ULListStr {
    */
   void clear();
 
+  /*
+	Object must have operator== and cout functionality
+  */
+  template <typename Object>
+  void test(int& tests, int& passed, std::string testname, Object output, Object expected);
+
  private:
   /** 
    * Returns a pointer to the item at index, loc,
