@@ -34,14 +34,14 @@ void ULListStr::push_back(const std::string& val)
   if (empty()) { // no items yet
     head_ = new Item();
     tail_ = head_;
-    size_++;
   }
   else if (tail_->last == ARRSIZE) { // if tail item has no space at end
-    tail_->next = new Item();
-    tail_->next->prev = tail_;
-    tail_ = tail_->next;
-    size_++;
+    Item* temp = new Item();
+    tail_->next = temp;
+    temp->prev = tail_;
+    tail_ = temp;
   }
+  size_++;
   tail_->val[tail_->last] = val;
   tail_->last++;
 }
@@ -55,12 +55,12 @@ void ULListStr::pop_back()
       tail_ = tail_->prev;
       delete temp;
       if (size_ > 1) tail_->next = NULL; // perhaps unnecessary
-      size_--;
     }
     else {
-      tail_->val[tail_->last] = ""; 
+      tail_->val[tail_->last - 1] = ""; 
       tail_->last--;
     }
+    size_--;
   }
 }
 
@@ -69,7 +69,6 @@ void ULListStr::push_front(const std::string& val)
   if (empty()) { // no items yet
     head_ = new Item();
     tail_ = head_;
-    size_++;
     // difference with push_back: reassign first last
     head_->first = head_->last = ARRSIZE;
   }
@@ -77,10 +76,10 @@ void ULListStr::push_front(const std::string& val)
     head_->prev = new Item();
     head_->prev->next = head_;
     head_ = head_->prev;
-    size_++;
     // difference with push_back: reassign first last
     head_->first = head_->last = ARRSIZE;
   }
+  size_++;
   head_->first--;
   head_->val[head_->first] = val;
 }
@@ -94,12 +93,12 @@ void ULListStr::pop_front()
       head_ = head_->next;
       delete temp;
       if (size_ > 1) head_->prev = NULL; // perhaps unnecessary
-      size_--;
     }
     else {
       head_->val[head_->first] = ""; 
       head_->first++;
     }
+    size_--;
   }
 }
 
